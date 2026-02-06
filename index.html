@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Veronica Aurellya 💜</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Handlee&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#f598ed;
+  overflow:hidden;
+}
+
+/* CONTAINER */
+.container{
+  text-align:center;
+  max-width:360px;
+  padding:20px;
+  position:relative;
+}
+
+/* ENVELOPE EMOJI */
+.envelope{
+  font-size:96px;
+  cursor:pointer;
+  animation:bounce 1.6s infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+/* NAME UNDER ENVELOPE */
+.name{
+  margin-top:6px;
+  font-family:'Pacifico', cursive;
+  font-size:18px;
+  color:#6b2d5c;
+}
+
+/* TAP TEXT */
+.tap{
+  margin-top:8px;
+  font-size:15px;
+  color:#777;
+  animation:fade 2s infinite;
+  font-family:'Handlee', cursive;
+}
+@keyframes fade{
+  0%,100%{opacity:.4;}
+  50%{opacity:1;}
+}
+
+/* LETTER */
+.letter{
+  display:none;
+  margin-top:20px;
+  animation:appear 1s ease forwards;
+}
+@keyframes appear{
+  from{opacity:0; transform:scale(.96);}
+  to{opacity:1; transform:scale(1);}
+}
+
+.title{
+  font-family:'Pacifico', cursive;
+  font-size:26px;
+  margin-bottom:10px;
+}
+
+/* SCROLLABLE TEXT AREA */
+.text-box{
+  max-height:320px;
+  overflow-y:auto;
+  padding-right:6px;
+  margin-top:6px;
+}
+
+.text{
+  font-family:'Handlee', cursive;
+  font-size:19px;
+  line-height:1.9;
+  white-space:pre-line;
+  text-align:left;
+}
+
+/* scrollbar */
+.text-box::-webkit-scrollbar{
+  width:4px;
+}
+.text-box::-webkit-scrollbar-thumb{
+  background:rgba(0,0,0,.25);
+  border-radius:10px;
+}
+.text-box{
+  scrollbar-width:thin;
+}
+
+/* SIGNATURE */
+.signature{
+  margin-top:18px;
+  text-align:right;
+  font-family:'Pacifico', cursive;
+  font-size:18px;
+}
+
+/* FALLING HEARTS */
+.heart{
+  position:absolute;
+  top:-10px;
+  font-size:18px;
+  animation:fall 4s linear forwards;
+  pointer-events:none;
+}
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="envelope" id="open">💌</div>
+  <div class="name">Veronica Aurellya 💜</div>
+  <div class="tap">buka amplopnya 💜</div>
+
+  <div class="letter" id="letter">
+    <div class="title">Untuk Veronica Aurellya 💜</div>
+
+    <div class="text-box">
+      <div class="text" id="text"></div>
+    </div>
+
+    <div class="signature">— Dengan cinta,wan 🤍</div>
+  </div>
+
+  <!-- MUSIC -->
+  <audio id="music" autoplay loop muted>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+const message = `Pacarku,Veronica Aurellya 💜,
+
+Di hari Valentine ini, aku cuma mau bilang satu hal yang sederhana tapi jujur:
+aku bahagia karena ada kamu.
+
+Kamu itu lucu—kadang nyebelin, kadang bikin aku ketawa tanpa alasan,
+tapi entah kenapa selalu jadi tempat paling nyaman buat pulang.
+
+Bersamamu, hal kecil terasa istimewa, dan hari biasa jadi punya arti.
+
+Terima kasih sudah jadi seseorang yang mau bertahan,
+yang mau mengerti meski aku nggak selalu mudah dimengerti,
+yang tetap memilih aku, bahkan saat aku sendiri ragu pada diriku.
+
+Kalau cinta itu perjalanan panjang,
+aku harap kita tersesat bareng, tertawa bareng, dan tumbuh bareng.
+
+Bukan cuma hari ini, tapi setiap hari.
+
+Selamat Hari Valentine.
+Aku mungkin nggak sempurna, tapi aku akan berusaha menjadi yang terbaik buat kamu 🤍`;
+
+let i = 0;
+const text = document.getElementById("text");
+const music = document.getElementById("music");
+
+function type(){
+  if(i < message.length){
+    text.textContent += message[i++];
+    text.parentElement.scrollTop = text.parentElement.scrollHeight;
+    setTimeout(type, 28);
+  }
+}
+
+function hearts(){
+  setInterval(()=>{
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.textContent = "💜";
+    h.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  },500);
+}
+
+document.getElementById("open").onclick = () => {
+  document.querySelector(".envelope").style.display="none";
+  document.querySelector(".tap").style.display="none";
+  document.querySelector(".name").style.display="none";
+  document.getElementById("letter").style.display="block";
+
+  music.muted = false;
+  music.volume = 0.45;
+  music.play().catch(()=>{});
+
+  type();
+  hearts();
+};
+</script>
+
+</body>
+</html>
